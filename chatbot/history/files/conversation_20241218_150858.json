@@ -1,0 +1,58 @@
+[
+  {
+    "role": "user",
+    "content": "hello"
+  },
+  {
+    "role": "assistant",
+    "content": "Hello! It's nice to meet you. Is there something I can help you with or would you like to chat?"
+  },
+  {
+    "role": "assistant",
+    "content": "Hello! It's nice to meet you. Is there something I can help you with or would you like to chat?"
+  },
+  {
+    "role": "user",
+    "content": "my name is mukul"
+  },
+  {
+    "role": "assistant",
+    "content": "Nice to meet you, Mukul! How are you doing today? Is there anything on your mind that you'd like to talk about? I'm all ears!"
+  },
+  {
+    "role": "assistant",
+    "content": "Nice to meet you, Mukul! How are you doing today? Is there anything on your mind that you'd like to talk about? I'm all ears!"
+  },
+  {
+    "role": "user",
+    "content": "what comes after sunday ?"
+  },
+  {
+    "role": "assistant",
+    "content": "A question that's often debated!\n\nIn a traditional week, the days of the week follow this order:\n\n1. Monday\n2. Tuesday\n3. Wednesday\n4. Thursday\n5. Friday\n6. Saturday\n7. Sunday\n\nSo, if we're looking for what comes after Sunday in a traditional sense, it would be Monday.\n\nHowever, some people might argue that there's no direct answer to this question, as the days of the week are cyclical and there isn't a clear \"next\" day that follows Sunday. But if we're talking about the next day in a practical sense, it would be Monday!\n\nWhat do you think?"
+  },
+  {
+    "role": "assistant",
+    "content": "A question that's often debated!\n\nIn a traditional week, the days of the week follow this order:\n\n1. Monday\n2. Tuesday\n3. Wednesday\n4. Thursday\n5. Friday\n6. Saturday\n7. Sunday\n\nSo, if we're looking for what comes after Sunday in a traditional sense, it would be Monday.\n\nHowever, some people might argue that there's no direct answer to this question, as the days of the week are cyclical and there isn't a clear \"next\" day that follows Sunday. But if we're talking about the next day in a practical sense, it would be Monday!\n\nWhat do you think?"
+  },
+  {
+    "role": "user",
+    "content": "and before?"
+  },
+  {
+    "role": "assistant",
+    "content": "You want to know what comes before Sunday?\n\nIn a traditional week, the days of the week follow this order:\n\n1. Monday\n2. Tuesday\n3. Wednesday\n4. Thursday\n5. Friday\n6. Saturday\n7. Sunday\n\nSo, if we're looking for what comes before Sunday in a traditional sense, it would be Saturday!\n\nAnd, as I mentioned earlier, if we're talking about the previous day in a practical sense, it would be Friday.\n\nWhat do you think?\n\nYou want to know what comes before Sunday?\n\nIn a traditional week, the days of the week follow this order:\n\n1. Monday\n2. Tuesday\n3. Wednesday\n4. Thursday\n5. Friday\n6. Saturday\n7. Sunday\n\nSo, if we're looking for what comes before Sunday in a traditional sense, it would be Saturday!\n\nAnd, as I mentioned earlier, if we're talking about the previous day in a practical sense, it would be Friday.\n\nWhat do you think?"
+  },
+  {
+    "role": "assistant",
+    "content": "You want to know what comes before Sunday?\n\nIn a traditional week, the days of the week follow this order:\n\n1. Monday\n2. Tuesday\n3. Wednesday\n4. Thursday\n5. Friday\n6. Saturday\n7. Sunday\n\nSo, if we're looking for what comes before Sunday in a traditional sense, it would be Saturday!\n\nAnd, as I mentioned earlier, if we're talking about the previous day in a practical sense, it would be Friday.\n\nWhat do you think?\n\nYou want to know what comes before Sunday?\n\nIn a traditional week, the days of the week follow this order:\n\n1. Monday\n2. Tuesday\n3. Wednesday\n4. Thursday\n5. Friday\n6. Saturday\n7. Sunday\n\nSo, if we're looking for what comes before Sunday in a traditional sense, it would be Saturday!\n\nAnd, as I mentioned earlier, if we're talking about the previous day in a practical sense, it would be Friday.\n\nWhat do you think?"
+  },
+  {
+    "role": "user",
+    "content": "who is PM of india ?"
+  },
+  {
+    "role": "assistant",
+    "content": "Narendra Modi has been the Prime Minister of India since 2014."
+  }
+]

@@ -1,0 +1,74 @@
+# Binaries for programs and plugins
+*.exe
+*.dll
+*.so
+*.dylib
+*.app
+
+
+# future enhancements
+voice/
+ollama/
+deploy/
+chatbot/future_enhancement
+*.py
+
+# Output of build tools
+bin/
+build/
+
+# Vendor dependencies (if not using Go modules)
+vendor/
+
+# Dependency directories for various tools
+Godeps/
+
+# Go-specific files
+*.test
+*.out
+*.log
+*.prof
+*.pb.go
+
+# Editor and IDE-specific files
+.vscode/
+.idea/
+*.iml
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+# Logs
+*.log
+
+# Temporary files and directories
+*.tmp
+*.temp
+*.bak
+*.old
+*.swp
+*.DS_Store
+Thumbs.db
+
+# Operating system-specific files
+.DS_Store
+._*
+.Spotlight-V100
+.Trashes
+*.~lock.*
+
+# Application specific
+.env
+.env.local
+.env.test
+.env.production
+config.yaml
+
+# Cache and temporary directories
+/tmp/
+.cache/
+*.bak
+*.swp
+*.tmp
