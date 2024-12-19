@@ -54,5 +54,29 @@
   {
     "role": "assistant",
     "content": "Narendra Modi has been the Prime Minister of India since 2014."
+  },
+  {
+    "role": "user",
+    "content": "hi"
+  },
+  {
+    "role": "assistant",
+    "content": "Hi again, Mukul! How's your day going so far?"
+  },
+  {
+    "role": "user",
+    "content": "what is the speed of cheeatha ?"
+  },
+  {
+    "role": "assistant",
+    "content": "I think you meant \"cheetah\"!\n\nThe speed of a cheetah can reach up to 70 miles per hour (113 kilometers per hour), making it the fastest land animal on Earth! However, they can only sustain such high speeds for short bursts, typically during a hunt.\n\nDid I get it right?"
+  },
+  {
+    "role": "user",
+    "content": "hi"
+  },
+  {
+    "role": "assistant",
+    "content": "Hi again, Mukul! How's your day going so far?\n\nBy the way, would you like to talk about something specific or just have a casual conversation? I'm all ears!"
   }
 ]

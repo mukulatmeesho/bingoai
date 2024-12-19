@@ -6,7 +6,7 @@ import (
 	"fmt"
 	"io"
 	"log"
-	"my-ai-assistant/assistantutils"
+	"my-ai-assistant/chatbot/chatbotutils"
 	"my-ai-assistant/chatbot/history"
 	"my-ai-assistant/constants"
 	"my-ai-assistant/exceptions"
@@ -16,7 +16,7 @@ import (
 	"time"
 )
 
-func OllamaChatbot(userMessage string, history *history.History) (string, error) {
+func OllamaChatbot(userMessage string, history *history.History, sendChunk func(chunk string, isFinal bool), isSendChunkEnabled bool) (string, error) {
 	start := time.Now()
 	//Use this when do not needed history
 	//
@@ -29,7 +29,7 @@ func OllamaChatbot(userMessage string, history *history.History) (string, error)
 		Model:      constants.DefaultModel,
 		NumPredict: 20,
 		Stream:     true,
-		Messages:   assistantutils.GetFormatedMessages(userMessage, history),
+		Messages:   chatbotutils.GetFormatedMessages(userMessage, history),
 		//Messages:   []request.Message{msg},
 		Format: request.Format{
 			Type: "object",
@@ -46,20 +46,20 @@ func OllamaChatbot(userMessage string, history *history.History) (string, error)
 		},
 	}
 
-	return talkToOllamaStream(constants.DefaultOllamaURLChat, req, start)
+	return talkToOllamaStream(constants.DefaultOllamaURLChat, req, start, sendChunk, isSendChunkEnabled)
 }
 
-func talkToOllamaStream(url string, ollamaReq request.OllamaChatRequest, start time.Time) (string, error) {
+func talkToOllamaStream(url string, ollamaReq request.OllamaChatRequest, start time.Time, sendChunk func(chunk string, isFinal bool), isSendChunkEnabled bool) (string, error) {
 	js, err := json.Marshal(ollamaReq)
-	exceptions.CheckError(err, "Failed to marshal request")
+	exceptions.CheckError(err, "Failed to marshal request", "")
 
 	client := http.Client{}
 	httpReq, err := http.NewRequest(http.MethodPost, url, bytes.NewReader(js))
-	exceptions.CheckError(err, "Failed to create HTTP request")
+	exceptions.CheckError(err, "Failed to create HTTP request", "")
 
 	httpReq.Header.Set("Content-Type", "application/json")
 	httpResp, err := client.Do(httpReq)
-	exceptions.CheckError(err, "Failed to make HTTP request")
+	exceptions.CheckError(err, "Failed to make HTTP request", "")
 	defer func() {
 		if closeErr := httpResp.Body.Close(); closeErr != nil {
 			log.Printf("Error closing response body: %v", closeErr)
@@ -91,13 +91,22 @@ func talkToOllamaStream(url string, ollamaReq request.OllamaChatRequest, start t
 		//	}
 		//}
 		//time.Sleep(50 * time.Millisecond)
+		//TODO: we might do a handling here such that it can give real time response to telegram bot word by word or char by char
 		if part.Message.Content != "" {
-			fmt.Print(part.Message.Content)
 			responseText += part.Message.Content
+			if isSendChunkEnabled {
+				sendChunk(responseText, false)
+				fmt.Print(part.Message.Content)
+			} else {
+				fmt.Print(part.Message.Content)
+			}
 		}
 		if part.Done {
 			break
 		}
+	}
+	if isSendChunkEnabled {
+		sendChunk(responseText, true)
 	}
 	fmt.Printf("\nCompleted in %v\n", time.Since(start))
 

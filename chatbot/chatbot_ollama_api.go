@@ -4,7 +4,7 @@ import (
 	"context"
 	"fmt"
 	"github.com/ollama/ollama/api"
-	"my-ai-assistant/assistantutils"
+	"my-ai-assistant/chatbot/chatbotutils"
 	"my-ai-assistant/chatbot/history"
 	"my-ai-assistant/constants"
 	"my-ai-assistant/exceptions"
@@ -15,11 +15,11 @@ func OllamaChatbotAPI(userMessage string, history *history.History) (string, err
 	start := time.Now()
 
 	client, err := api.ClientFromEnvironment()
-	exceptions.CheckError(err, "Failed to create Ollama client")
+	exceptions.CheckError(err, "Failed to create Ollama client", "")
 
 	req := &api.ChatRequest{
 		Model:    constants.DefaultModel,
-		Messages: assistantutils.GenerateFormatedMessagesApi(userMessage, history),
+		Messages: chatbotutils.GenerateFormatedMessagesApi(userMessage, history),
 		//
 		//Messages: []api.Message{
 		//	{
@@ -51,9 +51,9 @@ func OllamaChatbotAPI(userMessage string, history *history.History) (string, err
 	}
 
 	err = client.Chat(context.Background(), req, respFunc)
-	exceptions.CheckError(err, "Error during chat streaming")
+	exceptions.CheckError(err, "Error during chat streaming", "")
 
-	fmt.Printf("Completed in %v\n", time.Since(start))
+	fmt.Printf("\nCompleted in %v\n", time.Since(start))
 
 	return responseText, nil
 }

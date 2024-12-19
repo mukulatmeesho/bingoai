@@ -17,9 +17,13 @@ func EnsureHistoryDirExists(dir string) {
 	}
 }
 
-func GenerateFileName() string {
+func GenerateFileName(fileFor string) string {
 	timestamp := time.Now().Format("20060102_150405")
-	return fmt.Sprintf(constants.HistoryDir+"/conversation_%s.json", timestamp)
+	return fmt.Sprintf(constants.HistoryDir+"/"+fileFor+"_%s.json", timestamp)
+}
+
+func GenerateTeleFileName(fileFor string) string {
+	return fmt.Sprintf(constants.HistoryDir+"/%s.json", fileFor)
 }
 
 func ListHistoryFiles(dir string) ([]string, error) {

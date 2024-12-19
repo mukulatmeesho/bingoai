@@ -3,8 +3,10 @@ module my-ai-assistant
 go 1.23.4
 
 require (
-	github.com/go-telegram-bot-api/telegram-bot-api v4.6.4+incompatible
+	github.com/go-telegram/bot v1.11.1
+	github.com/joho/godotenv v1.5.1
 	github.com/ollama/ollama v0.5.3
+	github.com/slack-go/slack v0.15.0
 	github.com/tmc/langchaingo v0.1.12
 	gorgonia.org/gorgonia v0.9.18
 )
@@ -19,10 +21,10 @@ require (
 	github.com/golang/protobuf v1.5.4 // indirect
 	github.com/google/flatbuffers v24.3.25+incompatible // indirect
 	github.com/google/uuid v1.6.0 // indirect
+	github.com/gorilla/websocket v1.4.2 // indirect
 	github.com/leesper/go_rng v0.0.0-20190531154944-a612b043e353 // indirect
 	github.com/pkg/errors v0.9.1 // indirect
 	github.com/pkoukk/tiktoken-go v0.1.6 // indirect
-	github.com/technoweenie/multipartstreamer v1.0.1 // indirect
 	github.com/xtgo/set v1.0.0 // indirect
 	go4.org/unsafe/assume-no-moving-gc v0.0.0-20231121144256-b99613f794b6 // indirect
 	golang.org/x/xerrors v0.0.0-20240903120638-7835f813f4da // indirect

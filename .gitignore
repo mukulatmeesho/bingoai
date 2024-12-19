@@ -9,7 +9,8 @@
 # future enhancements
 voice/
 ollama/
-deploy/
+deploy/slack_bot.go
+deploy/whatsapp_bot.go
 chatbot/future_enhancement
 *.py
 

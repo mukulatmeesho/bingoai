@@ -27,15 +27,15 @@ func OllamaChatbotPrompt(userMessage string) (string, error) {
 
 func talkToOllamaGenerate(url string, ollamaReq request.PromptOllamaChatbotRequest, start time.Time) (string, error) {
 	js, err := json.Marshal(ollamaReq)
-	exceptions.CheckError(err, "failed to marshal request")
+	exceptions.CheckError(err, "failed to marshal request", "")
 
 	client := http.Client{}
 	httpReq, err := http.NewRequest(http.MethodPost, url, bytes.NewReader(js))
-	exceptions.CheckError(err, "failed to create HTTP request")
+	exceptions.CheckError(err, "failed to create HTTP request", "")
 
 	httpReq.Header.Set("Content-Type", "application/json")
 	httpResp, err := client.Do(httpReq)
-	exceptions.CheckError(err, "failed to make HTTP request")
+	exceptions.CheckError(err, "failed to make HTTP request", "")
 
 	defer func() {
 		if closeErr := httpResp.Body.Close(); closeErr != nil {
@@ -54,7 +54,7 @@ func talkToOllamaGenerate(url string, ollamaReq request.PromptOllamaChatbotReque
 	for {
 		var promptOllamaChatbotResponse response.PromptOllamaChatbotResponse
 		err := decoder.Decode(&promptOllamaChatbotResponse)
-		exceptions.CheckError(err, "Error decoding promptOllamaChatbotResponse")
+		exceptions.CheckError(err, "Error decoding promptOllamaChatbotResponse", "")
 
 		if promptOllamaChatbotResponse.Response != "" {
 			completeResponse += promptOllamaChatbotResponse.Response

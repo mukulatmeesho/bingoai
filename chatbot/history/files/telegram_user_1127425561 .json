@@ -1,0 +1,26 @@
+[
+  {
+    "role": "user",
+    "content": "Hi"
+  },
+  {
+    "role": "assistant",
+    "content": "Namaste! Kaise ho? Aap kis cheez par baat karne ki yaad dil rahe hain? Main aapki sahayata karne ke liye yahaan hoon."
+  },
+  {
+    "role": "user",
+    "content": "Hi"
+  },
+  {
+    "role": "assistant",
+    "content": "Hello! It's nice to meet you. Is there something I can help you with or would you like to chat?"
+  },
+  {
+    "role": "user",
+    "content": "Hi"
+  },
+  {
+    "role": "assistant",
+    "content": "It seems like we're starting from scratch! How are you today? Would you like to talk about something specific or just have a casual conversation?"
+  }
+]

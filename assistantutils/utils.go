@@ -1,43 +1,57 @@
 package assistantutils
 
 import (
-	"github.com/ollama/ollama/api"
+	"log"
+	"my-ai-assistant/chatbot"
 	"my-ai-assistant/chatbot/history"
-	"my-ai-assistant/request"
+	"my-ai-assistant/exceptions"
+	"strconv"
 )
 
-func GetFormatedMessages(userMessage string, history *history.History) []request.Message {
-	historyMessages := history.GetHistory()
+//
+//func ProcessUserMessageTest(userMessage string, identifier string) (string, error) {
+//	historyFilePath := history.GenerateFileName(identifier)
+//	newHistory := history.NewHistory(100, historyFilePath)
+//	if err := newHistory.Load(); err != nil {
+//		log.Printf("Failed to load history for identifier %s: %v", identifier, err)
+//	}
+//	newHistory.AddHistory("user", userMessage)
+//
+//	response, err := chatbot.OllamaChatbot(userMessage, newHistory)
+//	if err != nil {
+//		exceptions.CheckError(err, "Error processing message for identifier ", identifier)
+//		response = "Sorry, I encountered an error. Please try again later."
+//	}
+//	newHistory.AddHistory("assistant", response)
+//	if err := newHistory.Save(); err != nil {
+//		log.Printf("Failed to save history for identifier %s: %v", identifier, err)
+//	}
+//	return response, err
+//}
 
-	var formattedMessages []request.Message
-	for _, msg := range historyMessages {
-		formattedMessages = append(formattedMessages, request.Message{
-			Role:    msg.Role,
-			Content: msg.Content,
-		})
+func ProcessUserMessage(userMessage string, hist *history.History, identifier string, sendChunk func(chunk string, isFinal bool), isSendChunkEnabled bool) (string, error) {
+	if isSendChunkEnabled && sendChunk == nil {
+		sendChunk = func(chunk string, isFinal bool) {}
 	}
+	//response, err := chatbot.LangchainChatbot(userMessage, hist)
+	//response, err := chatbot.OllamaChatbotAPI(userMessage, hist)
+	//response, err := chatbot.OllamaChatbotPrompt(userMessage)
 
-	formattedMessages = append(formattedMessages, request.Message{
-		Role:    "user",
-		Content: userMessage,
-	})
-	return formattedMessages
+	response, err := chatbot.OllamaChatbot(userMessage, hist, sendChunk, isSendChunkEnabled)
+	if err != nil {
+		exceptions.CheckError(err, "Error processing message.", "")
+		response = "Sorry, I encountered an error. Please try again later."
+		return response, err
+	}
+	hist.AddHistory("user", userMessage)
+	hist.AddHistory("assistant", response)
+
+	if err := hist.Save(); err != nil {
+		log.Printf("Failed to save history for identifier %s: %v", identifier, err)
+	}
+	return response, err
 }
 
-func GenerateFormatedMessagesApi(userMessage string, history *history.History) []api.Message {
-	historyMessages := history.GetHistory()
-
-	var formattedMessages []api.Message
-	for _, msg := range historyMessages {
-		formattedMessages = append(formattedMessages, api.Message{
-			Role:    msg.Role,
-			Content: msg.Content,
-		})
-	}
-
-	formattedMessages = append(formattedMessages, api.Message{
-		Role:    "user",
-		Content: userMessage,
-	})
-	return formattedMessages
+func GenerateTelegramIdentifier(chatID int64) string {
+	return "telegram" + strconv.FormatInt(chatID, 10)
 }

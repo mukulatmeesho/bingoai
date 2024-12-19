@@ -3,7 +3,7 @@ package chatbot
 import (
 	"context"
 	"fmt"
-	"my-ai-assistant/assistantutils"
+	"my-ai-assistant/chatbot/chatbotutils"
 	"my-ai-assistant/chatbot/history"
 	"my-ai-assistant/constants"
 	"my-ai-assistant/exceptions"
@@ -14,16 +14,16 @@ import (
 	"github.com/tmc/langchaingo/llms/ollama"
 )
 
-func LangchainChatbot(userMessage string, history *history.History) string {
+func LangchainChatbot(userMessage string, history *history.History) (string, error) {
 	if userMessage == "" {
-		return "Please type something to ask the assistant."
+		return "Please type something to ask the assistant.", nil
 	}
 	start := time.Now()
 
 	llm, err := ollama.New(ollama.WithModel(constants.DefaultModel))
-	exceptions.CheckError(err, "Error initializing Langchain client:")
+	exceptions.CheckError(err, "Error initializing Langchain client:", "")
 
-	query := fmt.Sprintf("Human: %s\nAssistant: %s\nHistory: %s", constants.Prompt+userMessage, assistantutils.GetFormatedMessages(userMessage, history))
+	query := fmt.Sprintf("Human: %s\nAssistant: %s\nHistory: %s", constants.Prompt+userMessage, chatbotutils.GetFormatedMessages(userMessage, history))
 
 	ctx, cancel := context.WithTimeout(context.Background(), 100*time.Second)
 	defer cancel()
@@ -40,7 +40,7 @@ func LangchainChatbot(userMessage string, history *history.History) string {
 	)
 	fmt.Printf("\nCompleted in %v\n", time.Since(start))
 
-	exceptions.CheckError(err, "Error during Langchain call:")
+	exceptions.CheckError(err, "Error during Langchain call:", "")
 
-	return langchainResponse.String()
+	return langchainResponse.String(), err
 }
