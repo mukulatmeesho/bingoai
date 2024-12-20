@@ -78,5 +78,13 @@
   {
     "role": "assistant",
     "content": "Hi again, Mukul! How's your day going so far?\n\nBy the way, would you like to talk about something specific or just have a casual conversation? I'm all ears!"
+  },
+  {
+    "role": "user",
+    "content": "What is keyboard?"
+  },
+  {
+    "role": "assistant",
+    "content": "A keyboard is an input device used to type text and communicate with computers. It typically consists of a series of keys arranged in a QWERTY layout, which allows users to press individual keys or multiple keys simultaneously to enter characters, symbols, and commands.\n\nKeyboards can be found on desktop computers, laptops, tablets, and even smartphones. They come in various types, such as:\n\n1. Mechanical keyboards with tactile feedback\n2. Membrane keyboards for laptops and budget-friendly options\n3. Virtual keyboards for touchscreens\n4. Ergonomic keyboards designed to reduce fatigue\n\nThe keyboard is an essential tool for typing, browsing the internet, writing documents, and communicating with others through emails, chat apps, and social media.\n\nIs that what you meant by \"keyboard\"?"
   }
 ]

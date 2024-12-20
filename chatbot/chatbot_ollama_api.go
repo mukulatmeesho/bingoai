@@ -13,6 +13,7 @@ import (
 
 func OllamaChatbotAPI(userMessage string, history *history.History) (string, error) {
 	start := time.Now()
+	fmt.Printf("\nInside OllamaChatbotAPI with request : %v\n", userMessage)
 
 	client, err := api.ClientFromEnvironment()
 	exceptions.CheckError(err, "Failed to create Ollama client", "")

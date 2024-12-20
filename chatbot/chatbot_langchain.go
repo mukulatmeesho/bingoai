@@ -19,6 +19,7 @@ func LangchainChatbot(userMessage string, history *history.History) (string, err
 		return "Please type something to ask the assistant.", nil
 	}
 	start := time.Now()
+	fmt.Printf("\nInside LangchainChatbot with request : %v\n", userMessage)
 
 	llm, err := ollama.New(ollama.WithModel(constants.DefaultModel))
 	exceptions.CheckError(err, "Error initializing Langchain client:", "")
@@ -29,7 +30,7 @@ func LangchainChatbot(userMessage string, history *history.History) (string, err
 	defer cancel()
 
 	var langchainResponse strings.Builder
-
+	//TODO: may need handling for streaming and send chuncks in the future
 	_, err = llm.Call(ctx, query,
 		llms.WithTemperature(0.8),
 		llms.WithStreamingFunc(func(ctx context.Context, chunk []byte) error {

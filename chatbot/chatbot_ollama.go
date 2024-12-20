@@ -6,31 +6,28 @@ import (
 	"fmt"
 	"io"
 	"log"
+	"net/http"
+	"time"
+
 	"my-ai-assistant/chatbot/chatbotutils"
 	"my-ai-assistant/chatbot/history"
 	"my-ai-assistant/constants"
 	"my-ai-assistant/exceptions"
 	"my-ai-assistant/request"
 	"my-ai-assistant/response"
-	"net/http"
-	"time"
 )
+
+var httpClient = &http.Client{}
 
 func OllamaChatbot(userMessage string, history *history.History, sendChunk func(chunk string, isFinal bool), isSendChunkEnabled bool) (string, error) {
 	start := time.Now()
-	//Use this when do not needed history
-	//
-	//msg := request.Message{
-	//	Role:    "user",
-	//	Content: constants.Prompt + userMessage,
-	//}
+	fmt.Printf("\nInside OllamaChatbot with request : %v\n", userMessage)
 
 	req := request.OllamaChatRequest{
 		Model:      constants.DefaultModel,
 		NumPredict: 20,
-		Stream:     true,
+		Stream:     false,
 		Messages:   chatbotutils.GetFormatedMessages(userMessage, history),
-		//Messages:   []request.Message{msg},
 		Format: request.Format{
 			Type: "object",
 			Properties: map[string]string{
@@ -39,7 +36,6 @@ func OllamaChatbot(userMessage string, history *history.History, sendChunk func(
 			},
 			Required: []string{"data", "status"},
 		},
-
 		Options: request.Options{
 			Temperature: 0.5,
 			MaxTokens:   50,
@@ -53,12 +49,11 @@ func talkToOllamaStream(url string, ollamaReq request.OllamaChatRequest, start t
 	js, err := json.Marshal(ollamaReq)
 	exceptions.CheckError(err, "Failed to marshal request", "")
 
-	client := http.Client{}
 	httpReq, err := http.NewRequest(http.MethodPost, url, bytes.NewReader(js))
 	exceptions.CheckError(err, "Failed to create HTTP request", "")
 
 	httpReq.Header.Set("Content-Type", "application/json")
-	httpResp, err := client.Do(httpReq)
+	httpResp, err := httpClient.Do(httpReq)
 	exceptions.CheckError(err, "Failed to make HTTP request", "")
 	defer func() {
 		if closeErr := httpResp.Body.Close(); closeErr != nil {
@@ -82,16 +77,8 @@ func talkToOllamaStream(url string, ollamaReq request.OllamaChatRequest, start t
 			log.Printf("Error while decoding response: %v", err)
 			return "", err
 		}
+		fmt.Printf("\nSuccessfully decoded response in %v\n", time.Since(start))
 
-		//if part.Message.Content != "" {
-		//	for i := 0; i < len(part.Message.Content); i++ {
-		//		char := part.Message.Content[i]
-		//		fmt.Print(string(char))
-		//		responseText += string(char)
-		//	}
-		//}
-		//time.Sleep(50 * time.Millisecond)
-		//TODO: we might do a handling here such that it can give real time response to telegram bot word by word or char by char
 		if part.Message.Content != "" {
 			responseText += part.Message.Content
 			if isSendChunkEnabled {

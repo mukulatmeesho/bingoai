@@ -68,7 +68,7 @@ func runConsoleChat() {
 			break
 		}
 
-		response, _ := assistantutils.ProcessUserMessage(input, hist, historyFilePath, nil, false)
+		response, _ := assistantutils.ProcessUserMessage(input, assistantutils.GetModelType(input), hist, historyFilePath, nil, false)
 		fmt.Printf("Assistant: %s\n", response)
 	}
 

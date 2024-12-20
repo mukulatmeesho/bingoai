@@ -15,6 +15,7 @@ import (
 
 func OllamaChatbotPrompt(userMessage string) (string, error) {
 	start := time.Now()
+	fmt.Printf("\nInside OllamaChatbotPrompt with request : %v\n", userMessage)
 
 	req := request.PromptOllamaChatbotRequest{
 		Model:       constants.DefaultModel,
