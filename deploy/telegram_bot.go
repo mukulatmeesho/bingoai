@@ -123,7 +123,10 @@ func handleTelegramMessageNew(ctx context.Context, b *tgbotapi.BotAPI, client *C
 	if modelType != "" {
 		client.ModelType = modelType
 		msg := tgbotapi.NewMessage(client.UserID, fmt.Sprintf("Model switched to %s. Please proceed with your next message.", modelType))
-		b.Send(msg)
+		_, err := b.Send(msg)
+		if err != nil {
+			return
+		}
 		return
 	}
 
